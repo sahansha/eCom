@@ -44,29 +44,13 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable int id, @RequestBody String product)
+    public ResponseEntity<Product> updateProduct(@PathVariable long id, @RequestBody Product product)
     {
-        if (id >= 0 && id < products.size())
-        {
-            products.set(id, product);
-            return ResponseEntity.ok("Product updated!");
-        }
-        else
-        {
-            throw  new ProductNotFound(id);
-        }
+       return service.updateProduct(id,product);
     }
     @DeleteMapping("/products") // ?id=0
-    public ResponseEntity<String> deleteProduct(@RequestParam int id)
+    public ResponseEntity<String> deleteProduct(@RequestParam long id)
     {
-        if (id >= 0 && id < products.size())
-        {
-            products.remove(id);
-            return ResponseEntity.ok("Product Deleted!");
-        }
-        else
-        {
-            throw new ProductNotFound(id);
-        }
+        return service.deleteProduct(id);
     }
 }
